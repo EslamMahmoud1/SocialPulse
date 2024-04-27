@@ -3,7 +3,7 @@ using SocialPulse;
 using SocialPulse.Repository.Data.Context;
 
 
-namespace Qizzely.API.Extensions
+namespace SocialPulse.Extensions
 {
     public static class DbInitializer
     {

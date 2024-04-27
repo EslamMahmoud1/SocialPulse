@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SocialPulse.Service\SocialPulse.Service.csproj" />
+    <ProjectReference Include="..\SocilaPulse.Repository\SocialPulse.Repository.csproj" />
   </ItemGroup>
 
 </Project>

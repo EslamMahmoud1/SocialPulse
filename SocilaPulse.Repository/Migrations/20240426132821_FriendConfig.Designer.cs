@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialPulse.Repository.Data.Context;
 
@@ -11,9 +12,10 @@ using SocialPulse.Repository.Data.Context;
 namespace SocialPulse.Repository.Migrations
 {
     [DbContext(typeof(SocialPulseDataContext))]
-    partial class SocialPulseDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240426132821_FriendConfig")]
+    partial class FriendConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

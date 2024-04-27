@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using Qizzely.API.Extensions;
+using SocialPulse.Extensions;
 using SocialPulse.Repository.Data.Context;
 
 namespace SocialPulse
 {
     public class Program
     {
-        public static async void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +14,7 @@ namespace SocialPulse
 
             builder.Services.AddControllers();
 
-            builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
+            builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("ESqlConnection")));
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

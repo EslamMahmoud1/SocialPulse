@@ -29,9 +29,10 @@ namespace SocialPulse
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IPostService, PostService>();
-
+            builder.Services.AddScoped<IUserService , UserService>();
+            builder.Services.AddScoped<ITokenService , TokenService>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            builder.Services.AddIdentityService();
+            builder.Services.AddIdentityService(builder.Configuration);
             var app = builder.Build();
 
             await DbInitializer.InitializeDbAsync(app);
@@ -44,7 +45,7 @@ namespace SocialPulse
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

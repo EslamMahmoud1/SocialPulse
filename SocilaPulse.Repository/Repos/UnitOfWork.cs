@@ -11,10 +11,10 @@ namespace SocialPulse.Repository.Repos
 
         //hashtable to store created repositories by unit of work to efficiently work with repositories
         private readonly Hashtable _repositories;
-        public UnitOfWork(SocialPulseDataContext context, Hashtable repositories)
+        public UnitOfWork(SocialPulseDataContext context)
         {
             _context = context;
-            _repositories = repositories;
+            _repositories = new Hashtable();
         }
 
         public IGenericRepository<TEntity, TKey>? Repository<TEntity, TKey>() where TEntity : BaseEntity<TKey>

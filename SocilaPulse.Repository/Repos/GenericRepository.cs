@@ -19,13 +19,9 @@ namespace SocialPulse.Repository.Repos
             await _context.Set<TEntity>().AddAsync(entity);
         }
 
-        public async Task DeleteAsync(TKey id)
+        public void Delete(TEntity entity)
         {
-            var entity = await GetByIdAsync(id);
-            if(entity != null)
-            {
-                _context.Set<TEntity>().Remove(entity);
-            }
+            _context.Set<TEntity>().Remove(entity);
         }
 
         public async Task<List<TEntity>> GetAllAsync()
@@ -33,12 +29,12 @@ namespace SocialPulse.Repository.Repos
             return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public async Task<TEntity?> GetByIdAsync<Tkey>(Tkey id)
+        public async Task<TEntity?> GetByIdAsync(TKey id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
         }
 
-        public void UpdateAsync(TEntity entity)
+        public void Update(TEntity entity)
         {
             _context.Set<TEntity>().Update(entity);
         }

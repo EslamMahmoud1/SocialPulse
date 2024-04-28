@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SocialPulse;
+using SocialPulse.Core.Models;
 using SocialPulse.Repository.Data.Context;
+using SocialPulse.Repository.Data.Seeding;
 
 
 namespace SocialPulse.Extensions
@@ -15,6 +18,7 @@ namespace SocialPulse.Extensions
                 
                 var loggerFactory = service.GetRequiredService<ILoggerFactory>();
                 var context = service.GetRequiredService<SocialPulseDataContext>();
+                var userManager = service.GetRequiredService<UserManager<User>>();
 
                 try
                 {
@@ -22,7 +26,7 @@ namespace SocialPulse.Extensions
                     {
                        await context.Database.MigrateAsync();
                     }
-                    
+                    await DataSeeding.DataSeedAsync(userManager);
                 }
                 catch (Exception ex)
                 {

@@ -6,12 +6,12 @@ namespace SocialPulse.Core.Interfaces
     {
         public Task<List<TEntity>> GetAllAsync();
 
-        public Task<TEntity?> GetByIdAsync<Tkey>(Tkey id);
+        public Task<TEntity?> GetByIdAsync(TKey id);
 
         public Task AddAsync(TEntity entity);
 
-        public void UpdateAsync(TEntity entity);
+        public void Update(TEntity entity);
 
-        public Task DeleteAsync(TKey id);
+        public void Delete(TEntity entity);
     }
 }

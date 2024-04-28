@@ -1,6 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using SocialPulse.API.Extensions;
+using SocialPulse.Core.Interfaces;
+using SocialPulse.Core.Interfaces.Services;
 using SocialPulse.Extensions;
 using SocialPulse.Repository.Data.Context;
+using SocialPulse.Repository.Repos;
+using SocialPulse.Service;
+using System.Reflection;
 
 namespace SocialPulse
 {
@@ -21,6 +27,11 @@ namespace SocialPulse
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IPostService, PostService>();
+
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            builder.Services.AddIdentityService();
             var app = builder.Build();
 
             await DbInitializer.InitializeDbAsync(app);

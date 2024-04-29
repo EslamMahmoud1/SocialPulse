@@ -1,8 +1,8 @@
 ﻿using SocialPulse.Core.Models;
 
-namespace SocialPulse.Core.Interfaces
+namespace SocialPulse.Core.Interfaces.Repositories
 {
-    public interface IGenericRepository<TEntity ,TKey> where TEntity : BaseEntity<TKey>
+    public interface IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         public Task<List<TEntity>> GetAllAsync();
 

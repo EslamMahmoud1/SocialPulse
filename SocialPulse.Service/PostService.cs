@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SocialPulse.Core.DtoModels;
-using SocialPulse.Core.Interfaces;
+using SocialPulse.Core.Interfaces.Repositories;
 using SocialPulse.Core.Interfaces.Services;
 using SocialPulse.Core.Models;
 

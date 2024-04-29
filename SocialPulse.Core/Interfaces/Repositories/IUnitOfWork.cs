@@ -1,6 +1,6 @@
 ﻿using SocialPulse.Core.Models;
 
-namespace SocialPulse.Core.Interfaces
+namespace SocialPulse.Core.Interfaces.Repositories
 {
     public interface IUnitOfWork : IAsyncDisposable
     {

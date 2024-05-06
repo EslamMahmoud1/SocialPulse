@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SocialPulse.API.Extensions;
-using SocialPulse.Core.Interfaces;
+using SocialPulse.Core.Interfaces.Repositories;
 using SocialPulse.Core.Interfaces.Services;
 using SocialPulse.Extensions;
 using SocialPulse.Repository.Data.Context;
@@ -20,7 +20,9 @@ namespace SocialPulse
 
             builder.Services.AddControllers();
 
-            builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("ESqlConnection")));
+            //builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("ESqlConnection")));
+
+            builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("MoSqlConnection")));
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -9,51 +9,19 @@ namespace SocialPulse.Service
     public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly ITokenService _tokenService;
+        private readonly IMapper _mapper;
 
-        public UserService(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService)
+
+        public UserService(UserManager<User> userManager, IMapper mapper)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
-            _tokenService = tokenService;
+            _mapper = mapper;
         }
 
-        public async Task<UserDto?> LoginAsync(LoginDto login)
+        public async Task<UserDto> GetByIdAsync(string id)
         {
-            var user = await _userManager.FindByEmailAsync(login.Email);
-            if (user == null) return null;
-
-            var userLogin = await _signInManager.CheckPasswordSignInAsync(user, login.Password, false);
-            if (!userLogin.Succeeded) return null;
-
-            return new UserDto
-            {
-                Email = user.Email,
-                UserName = user.UserName,
-                Token = _tokenService.GenerateToken(user)
-            };
-        }
-
-        public async Task<UserDto?> RegisterAsync(RegisterDto register)
-        {
-            var findEmail = await _userManager.FindByEmailAsync(register.Email);
-            if (findEmail != null) return null;
-
-            var user = new User
-            {
-                Email = register.Email,
-                UserName = register.Email,
-            };
-            var res = await _userManager.CreateAsync(user,register.Password);
-            if (!res.Succeeded) return null;
-
-            return new UserDto
-            {
-                Email = user.Email,
-                UserName = user.UserName,
-                Token = _tokenService.GenerateToken(user)
-            };
+            var user = await _userManager.FindByIdAsync(id);
+            return _mapper.Map<UserDto>(user);
         }
     }
 }

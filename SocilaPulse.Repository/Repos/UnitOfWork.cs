@@ -17,7 +17,7 @@ namespace SocialPulse.Repository.Repos
             _repositories = new Hashtable();
         }
 
-        public IGenericRepository<TEntity, TKey>? Repository<TEntity, TKey>() where TEntity : BaseEntity<TKey>
+        public IGenericRepository<TEntity, TKey> Repository<TEntity, TKey>() where TEntity : BaseEntity<TKey>
         {
             var TEntityName = typeof(TEntity).Name;
 

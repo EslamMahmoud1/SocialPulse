@@ -6,7 +6,7 @@ namespace SocialPulse.Core.Interfaces
     {
         public Task<List<TEntity>> GetAllAsync();
 
-        public Task<TEntity?> GetByIdAsync(TKey id);
+        public Task<TEntity> GetByIdAsync(TKey id);
 
         public Task AddAsync(TEntity entity);
 

@@ -6,19 +6,19 @@ namespace SocialPulse.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AccountController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
 
-        public UserController(IUserService userService)
+        public AccountController(IAccountService userService)
         {
-            _userService = userService;
+            _accountService = userService;
         }
 
         [HttpPost(template:"login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto login)
         {
-            var user = await _userService.LoginAsync(login);
+            var user = await _accountService.LoginAsync(login);
             return user != null ? Ok(user) : Unauthorized(user);
         }
 
@@ -27,7 +27,7 @@ namespace SocialPulse.API.Controllers
         [HttpPost(template:"register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto register)
         {
-            var user = await _userService.RegisterAsync(register);
+            var user = await _accountService.RegisterAsync(register);
             return Ok(user);
         }
     }

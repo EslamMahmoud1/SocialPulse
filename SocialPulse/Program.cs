@@ -29,7 +29,7 @@ namespace SocialPulse
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IPostService, PostService>();
-            builder.Services.AddScoped<IUserService , UserService>();
+            builder.Services.AddScoped<IAccountService , AccountService>();
             builder.Services.AddScoped<ITokenService , TokenService>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             builder.Services.AddIdentityService(builder.Configuration);

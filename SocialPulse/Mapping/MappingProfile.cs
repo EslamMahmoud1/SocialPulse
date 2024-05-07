@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SocialPulse.API.Helpers;
 using SocialPulse.Core.DtoModels.PostDto;
 using SocialPulse.Core.Models;
 
@@ -10,7 +11,8 @@ namespace SocialPulse.API.Mapping
         {
             CreateMap<Post,PostDto>().ReverseMap();
 
-            CreateMap<PostResultDto,Post>().ReverseMap();
+            CreateMap<PostResultDto,Post>().ReverseMap()
+                .ForMember(destination => destination.FilePath , options => options.MapFrom<MediaUrlResolverForPost>());
             
         }
     }

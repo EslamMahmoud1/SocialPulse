@@ -20,9 +20,9 @@ namespace SocialPulse
 
             builder.Services.AddControllers();
 
-            //builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("ESqlConnection")));
+            builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("ESqlConnection")));
 
-            builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("MoSqlConnection")));
+            //builder.Services.AddDbContext<SocialPulseDataContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("MoSqlConnection")));
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -45,11 +45,11 @@ namespace SocialPulse
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 

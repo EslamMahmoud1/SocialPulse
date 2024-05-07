@@ -9,8 +9,8 @@ namespace SocialPulse.Repository.Data.Configurations
         public void Configure(EntityTypeBuilder<Friend> builder)
         {
             // Composite key
-            builder
-            .HasKey(f => new { f.RequesterId, f.AddresseeId}); 
+            //builder
+            //.HasKey(f => new { f.RequesterId, f.AddresseeId}); 
 
             
             // Configure the relationship between Friend.Requester and User

@@ -1,9 +1,10 @@
-﻿namespace SocialPulse.Core.DtoModels.PostDto
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SocialPulse.Core.DtoModels.PostDto
 {
     public class PostDto
     {
         public string Content { get; set; }
 
-        public DateTime CreatedDate { get; set; }
     }
 }

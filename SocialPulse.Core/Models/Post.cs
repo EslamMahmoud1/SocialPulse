@@ -1,4 +1,6 @@
-﻿namespace SocialPulse.Core.Models
+﻿using SocialPulse.Core.Models.PostMedias;
+
+namespace SocialPulse.Core.Models
 {
     public class Post : BaseEntity<int>
     {
@@ -9,7 +11,7 @@
         public string Content { get; set; }
 
         public DateTime CreatedDate { get; set; }
-
+        public PostMedia Media { get; set; } 
         public List<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

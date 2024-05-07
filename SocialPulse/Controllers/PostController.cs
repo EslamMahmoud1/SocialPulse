@@ -28,10 +28,10 @@ namespace SocialPulse.API.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<PostResultDto>> CreatePost(PostDto input)
+        public async Task<ActionResult<PostResultDto>> CreatePost([FromForm] PostDto input ,[FromForm] IFormFile file)
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
-            var posts = await _postService.CreatePostAsync(userEmail, input);
+            var posts = await _postService.CreatePostAsync(userEmail,input,file);
             return posts is not null ? Ok(posts) : throw new Exception("test ex");
         }
 

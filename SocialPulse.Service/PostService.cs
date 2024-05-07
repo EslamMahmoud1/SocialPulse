@@ -7,6 +7,9 @@ using SocialPulse.Core.DtoModels;
 using SocialPulse.Core.Interfaces.Repositories;
 using SocialPulse.Core.Interfaces.Services;
 using SocialPulse.Core.Models;
+using Microsoft.AspNetCore.Http;
+using SocialPulse.Service.Utility;
+using SocialPulse.Core.Models.PostMedias;
 
 namespace SocialPulse.Service
 {
@@ -23,14 +26,24 @@ namespace SocialPulse.Service
             _userManager = userManager;
         }
 
-        public async Task<PostResultDto> CreatePostAsync(string userEmail, PostDto post)
+        public async Task<PostResultDto> CreatePostAsync(string userEmail, PostDto post , IFormFile file)
         {
             var user = await _userManager.FindByEmailAsync(userEmail);
+            string folderName = file.ContentType.StartsWith("image/") ? "images" : "videos";
+            MediaType type = file.ContentType.StartsWith("image/") ? MediaType.Image : MediaType.Video;
+
+            var fileName = FileHandling.UploadPostFile(file, folderName);
             var postCreated = new Post()
             {
                 UserId = user.Id,
                 Content = post.Content,
                 CreatedDate = DateTime.UtcNow,
+                Media = new PostMedia ()
+                {
+                    FileName = file.FileName,
+                    FilePath = fileName,
+                    MediaType = type
+                }
             };
 
             await _unitOfWork.Repository<Post, int>().AddAsync(postCreated);

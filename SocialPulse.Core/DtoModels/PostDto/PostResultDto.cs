@@ -6,6 +6,8 @@
 
         public string Content { get; set; }
 
+        public string FilePath { get; set; }
+
         public DateTime CreatedDate { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace SocialPulse.Core.DtoModels.UserDto
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
         [PasswordPropertyText]        
         public string Password { get; set; }
     }

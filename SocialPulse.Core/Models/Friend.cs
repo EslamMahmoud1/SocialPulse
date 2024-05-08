@@ -2,7 +2,7 @@
 
 namespace SocialPulse.Core.Models
 {
-    public class Friend : BaseEntity<int>
+    public class Friend
     {
         public string RequesterId { get; set; }
         public User Requester { get; set; }

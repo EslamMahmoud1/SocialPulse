@@ -20,4 +20,8 @@
     <ProjectReference Include="..\SocialPulse.Core\SocialPulse.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

@@ -34,6 +34,7 @@ namespace SocialPulse
             builder.Services.AddScoped<IUserService , UserService>();
             builder.Services.AddScoped<ITokenService , TokenService>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            builder.Services.AddSwaggerService();
             builder.Services.AddIdentityService(builder.Configuration);
             var app = builder.Build();
 
@@ -45,10 +46,11 @@ namespace SocialPulse
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
+
 
 
             app.MapControllers();

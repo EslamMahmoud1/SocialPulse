@@ -197,10 +197,7 @@ namespace SocialPulse.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
+                    b.Property<int>("FriendshipStatus")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")

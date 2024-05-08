@@ -19,7 +19,26 @@ namespace SocialPulse.Service
             _tokenService = tokenService;
         }
 
+<<<<<<< Updated upstream
         public async Task<UserDto?> LoginAsync(LoginDto login)
+=======
+        public Task<string> ChangeFirstName(string oldFirstName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> ChangeLastName(string oldFirstName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> ChangeProfilePic(string oldProfilePic)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<UserDto> GetByIdAsync(string id)
+>>>>>>> Stashed changes
         {
             var user = await _userManager.FindByEmailAsync(login.Email);
             if (user == null) return null;

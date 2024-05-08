@@ -8,19 +8,15 @@ namespace SocialPulse.Repository.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Friend> builder)
         {
-            // Composite key
             builder
-            .HasKey(f => new { f.RequesterId, f.AddresseeId}); 
+            .HasKey(f => new { f.RequesterId, f.AddresseeId });
 
-            
-            // Configure the relationship between Friend.Requester and User
             builder
                 .HasOne(f => f.Requester)
                 .WithMany()
                 .HasForeignKey(f => f.RequesterId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Configure the relationship between Friend.Addressee and User
             builder
                 .HasOne(f => f.Addressee)
                 .WithMany()

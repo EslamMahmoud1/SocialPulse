@@ -1,5 +1,13 @@
 ﻿using AutoMapper;
+<<<<<<< Updated upstream
 using SocialPulse.Core.DtoModels;
+=======
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SocialPulse.Core.DtoModels.PostDto;
+using SocialPulse.Core.Interfaces;
+using SocialPulse.Core.DtoModels.PostDto;
+>>>>>>> Stashed changes
 using SocialPulse.Core.Interfaces.Repositories;
 using SocialPulse.Core.Interfaces.Services;
 using SocialPulse.Core.Models;

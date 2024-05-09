@@ -183,7 +183,7 @@ namespace SocialPulse.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Models.Friend", b =>
@@ -209,7 +209,7 @@ namespace SocialPulse.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Friends");
+                    b.ToTable("Friends", (string)null);
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Models.Post", b =>
@@ -235,7 +235,7 @@ namespace SocialPulse.Repository.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("SocialPulse.Core.Models.User", b =>
@@ -418,7 +418,7 @@ namespace SocialPulse.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("SocialPulse.Core.Models.PostMedias.PostMedia", "Media", b1 =>
+                    b.OwnsOne("SocialPulse.Core.Models.Post.Media#SocialPulse.Core.Models.PostMedias.PostMedia", "Media", b1 =>
                         {
                             b1.Property<int>("PostId")
                                 .HasColumnType("int");
@@ -436,7 +436,7 @@ namespace SocialPulse.Repository.Migrations
 
                             b1.HasKey("PostId");
 
-                            b1.ToTable("Posts");
+                            b1.ToTable("Posts", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("PostId");

@@ -12,7 +12,7 @@ using SocialPulse.Repository.Data.Context;
 namespace SocialPulse.Repository.Migrations
 {
     [DbContext(typeof(SocialPulseDataContext))]
-    [Migration("20240420101929_InitialCreate")]
+    [Migration("20240508160527_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -190,22 +190,14 @@ namespace SocialPulse.Repository.Migrations
 
             modelBuilder.Entity("SocialPulse.Core.Models.Friend", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("RequesterId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddresseeId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("RequesterId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -213,11 +205,9 @@ namespace SocialPulse.Repository.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("RequesterId", "AddresseeId");
 
                     b.HasIndex("AddresseeId");
-
-                    b.HasIndex("RequesterId");
 
                     b.HasIndex("UserId");
 
@@ -269,6 +259,14 @@ namespace SocialPulse.Repository.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -293,6 +291,9 @@ namespace SocialPulse.Repository.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("ProfileDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
@@ -417,6 +418,33 @@ namespace SocialPulse.Repository.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("SocialPulse.Core.Models.PostMedias.PostMedia", "Media", b1 =>
+                        {
+                            b1.Property<int>("PostId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("FileName")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("FilePath")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("MediaType")
+                                .HasColumnType("int");
+
+                            b1.HasKey("PostId");
+
+                            b1.ToTable("Posts");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PostId");
+                        });
+
+                    b.Navigation("Media")
                         .IsRequired();
 
                     b.Navigation("User");

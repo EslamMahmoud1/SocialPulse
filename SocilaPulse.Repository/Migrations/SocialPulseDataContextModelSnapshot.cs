@@ -188,22 +188,14 @@ namespace SocialPulse.Repository.Migrations
 
             modelBuilder.Entity("SocialPulse.Core.Models.Friend", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<string>("RequesterId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddresseeId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("RequesterId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -211,11 +203,9 @@ namespace SocialPulse.Repository.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("RequesterId", "AddresseeId");
 
                     b.HasIndex("AddresseeId");
-
-                    b.HasIndex("RequesterId");
 
                     b.HasIndex("UserId");
 

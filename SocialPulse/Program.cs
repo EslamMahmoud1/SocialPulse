@@ -31,6 +31,7 @@ namespace SocialPulse
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IPostService, PostService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IAccountService , AccountService>();
             builder.Services.AddScoped<ITokenService , TokenService>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

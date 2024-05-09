@@ -61,8 +61,12 @@ namespace SocialPulse.Service
 
         public async Task<IEnumerable<PostResultDto>> GetAllPostsAsync(string userEmail)
         {
-            var user = await _userManager.Users.Include(u => u.Posts).SingleAsync(u => u.Email == userEmail);
+            var user = await _userManager.Users
+                .Include(u => u.Posts)
+                .ThenInclude(p => p.Comments)
+                .SingleAsync(u => u.Email == userEmail);
             var allPosts = user.Posts;
+            
             return _mapper.Map<IEnumerable<PostResultDto>>(allPosts);
         }
 

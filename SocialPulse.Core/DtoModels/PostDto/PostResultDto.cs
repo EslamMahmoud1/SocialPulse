@@ -1,4 +1,7 @@
-﻿namespace SocialPulse.Core.DtoModels.PostDto
+﻿using SocialPulse.Core.DtoModels.CommentDto;
+using SocialPulse.Core.Models;
+
+namespace SocialPulse.Core.DtoModels.PostDto
 {
     public class PostResultDto
     {
@@ -9,5 +12,6 @@
         public string FilePath { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        public List<CommentResultDto> Comments { get; set; }
     }
 }

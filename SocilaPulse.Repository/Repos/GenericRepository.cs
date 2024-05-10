@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SocialPulse.Core.Interfaces.Repositories;
+using SocialPulse.Core.Interfaces.Specification;
 using SocialPulse.Core.Models;
 using SocialPulse.Repository.Data.Context;
+using SocialPulse.Repository.Specifications;
 
 namespace SocialPulse.Repository.Repos
 {
@@ -29,9 +31,19 @@ namespace SocialPulse.Repository.Repos
             return await _context.Set<TEntity>().ToListAsync();
         }
 
+        public async Task<List<TEntity>> GetAllWithSpecAsync(ISpecification<TEntity> specification)
+        {
+            return await SpecificationEvaluator<TEntity,TKey>.BuildQuery(_context.Set<TEntity>(), specification).ToListAsync();
+        }
+
         public async Task<TEntity?> GetByIdAsync(TKey id)
         {
             return await _context.Set<TEntity>().FindAsync(id);
+        }
+
+        public async Task<TEntity> GetByIdWithSpecAsync(ISpecification<TEntity> specification)
+        {
+            return await SpecificationEvaluator<TEntity, TKey>.BuildQuery(_context.Set<TEntity>(), specification).FirstOrDefaultAsync();
         }
 
         public void Update(TEntity entity)

@@ -4,6 +4,7 @@ using SocialPulse.Core.DtoModels.CommentDto;
 using SocialPulse.Core.Interfaces.Repositories;
 using SocialPulse.Core.Interfaces.Services;
 using SocialPulse.Core.Models;
+using SocialPulse.Repository.Specifications;
 
 namespace SocialPulse.Service
 {
@@ -54,7 +55,8 @@ namespace SocialPulse.Service
 
         public async Task<IEnumerable<CommentResultDto>> GetAllCommentsAsync(int postId)
         {
-            var post = await _unitOfWork.Repository<Post, int>().GetByIdAsync(postId);
+            var spec = new PostSpec(postId);
+            var post = await _unitOfWork.Repository<Post, int>().GetByIdWithSpecAsync(spec);
             var comments = post.Comments;
             return _mapper.Map<IEnumerable<CommentResultDto>>(comments);
         }

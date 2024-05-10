@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SocialPulse.Core.DtoModels.PostDto;
+using SocialPulse.Core.Models;
 
 namespace SocialPulse.Core.Interfaces.Services
 {
@@ -7,10 +8,10 @@ namespace SocialPulse.Core.Interfaces.Services
     {
         public Task<PostResultDto> CreatePostAsync(string userID, PostDto post ,IFormFile file);
 
-        public Task<PostResultDto> GetPostByIdAsync(string userID, int id);
+        public Task<Post> GetPostByIdAsync(int id);
         public Task<IEnumerable<PostResultDto>> GetAllPostsAsync(string userID);
 
-        public Task<PostResultDto> UpdatePostAsync(string userID, PostResultDto updatedPost);
+        public Task<PostResultDto> UpdatePostAsync(string userID,int postId, PostDto updatedPost);
 
         public Task<int> DeletePost(string userID, int id);
     }

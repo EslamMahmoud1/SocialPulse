@@ -1,4 +1,5 @@
-﻿using SocialPulse.Core.Models;
+﻿using SocialPulse.Core.Interfaces.Specification;
+using SocialPulse.Core.Models;
 
 namespace SocialPulse.Core.Interfaces.Repositories
 {
@@ -7,6 +8,8 @@ namespace SocialPulse.Core.Interfaces.Repositories
         public Task<List<TEntity>> GetAllAsync();
 
         public Task<TEntity> GetByIdAsync(TKey id);
+
+        Task<TEntity> GetWithSpecsAsync(ISpecification<TEntity> specification);
 
         public Task AddAsync(TEntity entity);
 

@@ -33,6 +33,29 @@ namespace SocialPulse.Repository.Repos
             return CreatedRepository;
         }
 
+        public IUserRepository UserRepository()
+        {
+            var TEntityName = typeof(User).Name;
+
+            if (_repositories.ContainsKey(TEntityName))
+                return _repositories[TEntityName] as UserRepository;
+
+            var CreatedRepository = new UserRepository(_context);
+            _repositories.Add(TEntityName, CreatedRepository);
+            return CreatedRepository;
+        }
+
+        public IFriendRepository FriendRepository()
+        {
+            var TEntityName = typeof(Friend).Name;
+
+            if (_repositories.ContainsKey(TEntityName))
+                return _repositories[TEntityName] as FriendRepository;
+
+            var CreatedRepository = new FriendRepository(_context);
+            _repositories.Add(TEntityName, CreatedRepository);
+            return CreatedRepository;
+        }
 
         public async Task<int> CompleteAsync()
         {
@@ -43,7 +66,6 @@ namespace SocialPulse.Repository.Repos
         {
             await _context.DisposeAsync();
         }
-
 
     }
 }

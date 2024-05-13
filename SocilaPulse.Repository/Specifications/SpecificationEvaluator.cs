@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SocialPulse.Repository.Specifications
 {
-    public class SpecificationEvaluator<TEntity, TKey> where TEntity : BaseEntity<TKey>
+    public class SpecificationEvaluator<TEntity, TKey> where TEntity : class
     {
         public static IQueryable<TEntity> BuildQuery(IQueryable<TEntity> inputQuery, ISpecification<TEntity> specification)
         {

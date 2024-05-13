@@ -1,7 +1,10 @@
-﻿namespace SocialPulse.Core.Helpers
+﻿using System.Text.Json.Serialization;
+
+namespace SocialPulse.Core.Helpers
 {
+   // [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum FriendshipStatus
     {
-        Pending, Accepted, Declined, Blocked
+       NotDefined ,Pending, Accepted, Declined, Blocked
     }
 }

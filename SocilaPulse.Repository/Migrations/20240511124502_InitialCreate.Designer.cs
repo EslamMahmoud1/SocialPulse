@@ -12,7 +12,7 @@ using SocialPulse.Repository.Data.Context;
 namespace SocialPulse.Repository.Migrations
 {
     [DbContext(typeof(SocialPulseDataContext))]
-    [Migration("20240508160527_InitialCreate")]
+    [Migration("20240511124502_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -381,7 +381,7 @@ namespace SocialPulse.Repository.Migrations
                     b.HasOne("SocialPulse.Core.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Post");

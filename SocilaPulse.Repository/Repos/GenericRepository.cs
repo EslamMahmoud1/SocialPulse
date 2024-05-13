@@ -41,6 +41,8 @@ namespace SocialPulse.Repository.Repos
             return await _context.Set<TEntity>().FindAsync(id);
         }
 
+       
+
         public async Task<TEntity> GetByIdWithSpecAsync(ISpecification<TEntity> specification)
         {
             return await SpecificationEvaluator<TEntity, TKey>.BuildQuery(_context.Set<TEntity>(), specification).FirstOrDefaultAsync();

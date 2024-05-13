@@ -6,8 +6,9 @@ namespace SocialPulse.Core.Interfaces.Repositories
     public interface IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
         public Task<List<TEntity>> GetAllAsync();
-
+        public Task<List<TEntity>> GetAllWithSpecAsync(ISpecification<TEntity> specification);
         public Task<TEntity> GetByIdAsync(TKey id);
+        public Task<TEntity> GetByIdWithSpecAsync(ISpecification<TEntity> specification);
 
         Task<TEntity> GetWithSpecsAsync(ISpecification<TEntity> specification);
 

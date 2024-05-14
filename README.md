@@ -10,3 +10,5 @@
 
 https://github.com/EslamMahmoud1/SocialPulse/assets/36710377/f91c5cda-d73b-46f5-a869-093e243b3127
 
+<h3>Features in Progress</h3>
+<p>*News Feed Service</p>

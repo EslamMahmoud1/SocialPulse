@@ -11,11 +11,11 @@ namespace SocialPulse.Core.Interfaces.Services
     public interface IFriendService
     {
 
-        Task<FriendToReturnDto> AddFriend(string requesterId, string addresseeId);
+        Task<AddFriendDto> AddFriend(string requesterId, string addresseeId);
 
         Task<IEnumerable<FriendToReturnDto>> GetFriendRequests(string addresseeId);
 
-        Task<IEnumerable<FriendToReturnDto>> GetFriendsList(string addresseeId);
+        Task<List<FriendToReturnDto>> GetFriendsList(string addresseeId);
 
         Task<FriendToReturnDto> RemoveFriend(string userId, string friendUserId);
 

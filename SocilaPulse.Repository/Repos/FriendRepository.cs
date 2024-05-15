@@ -36,6 +36,11 @@ namespace SocialPulse.Repository.Repos
             return await SpecificationEvaluator<Friend, string>.BuildQuery(_context.Set<Friend>(), specification).ToListAsync();
         }
 
+        public async Task<List<Friend>> GetAllWithSpecsAsyncc(ISpecification<Friend> specification)
+        {
+            return await SpecificationEvaluator<Friend, string>.BuildQuery(_context.Set<Friend>(), specification).ToListAsync();
+        }
+
         public async Task<Friend> GetWithSpecsAsync(ISpecification<Friend> specification)
         {
             return (await SpecificationEvaluator<Friend, string>.BuildQuery(_context.Set<Friend>(), specification).FirstOrDefaultAsync())!;

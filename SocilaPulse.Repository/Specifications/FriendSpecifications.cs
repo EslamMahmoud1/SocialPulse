@@ -1,4 +1,5 @@
-﻿using SocialPulse.Core.Models;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using SocialPulse.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace SocialPulse.Repository.Specifications
     {
         public FriendSpecifications(Expression<Func<Friend, bool>> criteria) : base(criteria)
         {
+            IncludeExpressions.Add(x => x.Addressee);
+            IncludeExpressions.Add(x => x.Requester);
         }
     }
 }

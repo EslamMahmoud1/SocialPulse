@@ -27,7 +27,7 @@ namespace SocialPulse.Service
             _mapper = mapper;
         }
 
-        public async Task<FriendToReturnDto> AddFriend(string requesterId, string addresseeId)
+        public async Task<AddFriendDto> AddFriend(string requesterId, string addresseeId)
         {
             var requester = await _userManager.FindByIdAsync(requesterId);
             var addressee = await _userManager.FindByIdAsync(addresseeId);
@@ -54,7 +54,7 @@ namespace SocialPulse.Service
             await _unitOfWork.FriendRepository().AddAsync(friend);
             await _unitOfWork.CompleteAsync(); // Assuming CompleteAsync saves changes
 
-            return _mapper.Map<FriendToReturnDto>(friend);
+            return _mapper.Map<AddFriendDto>(friend);
         }
 
         public async Task<IEnumerable<FriendToReturnDto>> GetFriendRequests(string addresseeId)
@@ -70,17 +70,12 @@ namespace SocialPulse.Service
 
             var requests = await _unitOfWork.FriendRepository().GetAllWithSpecsAsync(specs);
 
-            foreach (var request in requests)
-            {
-                request.Requester = await _userManager.FindByIdAsync(request.RequesterId);
-            }
-
             var pendingRequests = requests.Select(x => x.Requester);
 
             return _mapper.Map<IEnumerable<FriendToReturnDto>>(pendingRequests);
         }
 
-        public async Task<IEnumerable<FriendToReturnDto>> GetFriendsList(string addresseeId)
+        public async Task<List<FriendToReturnDto>> GetFriendsList(string addresseeId)
         {
             var user = await _userManager.FindByIdAsync(addresseeId);
 
@@ -89,18 +84,25 @@ namespace SocialPulse.Service
                 throw new ArgumentException("User not found.");
             }
 
-            var specs = new FriendSpecifications(f => f.AddresseeId == addresseeId && f.Status == FriendshipStatus.Accepted);
+            var specs = new FriendSpecifications(f => (f.AddresseeId == addresseeId || f.RequesterId == addresseeId ) && f.Status == FriendshipStatus.Accepted);
 
-            var list = await _unitOfWork.FriendRepository().GetAllWithSpecsAsync(specs);
+            var list = await _unitOfWork.FriendRepository().GetAllWithSpecsAsyncc(specs);
 
-            foreach (var friend in list)
+            List<User>? friendsList = new List<User>();
+
+            for ( int i = 0; i < list.Count; i++)
             {
-                friend.Requester = await _userManager.FindByIdAsync(friend.RequesterId);
+                if (list[i].Requester == user)
+                {
+                    friendsList.Add( list[i].Addressee);
+                }
+                else
+                {
+                    friendsList.Add(list[i].Requester);
+                }
             }
 
-            var friendsList = list.Select(x => x.Requester);
-
-            return _mapper.Map<IEnumerable<FriendToReturnDto>>(friendsList);
+            return _mapper.Map<List<FriendToReturnDto>>(friendsList);
         }
 
         public async Task<FriendToReturnDto> RemoveFriend(string userId , string friendUserId)

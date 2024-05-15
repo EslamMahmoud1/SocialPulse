@@ -36,9 +36,9 @@ namespace SocialPulse.API.Controllers
         }
 
 
-        [HttpDelete]
+        [HttpDelete("{postId}")]
         [Authorize]
-        public async Task<int> DeletePost([FromQuery]int postId)
+        public async Task<int> DeletePost(int postId)
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
             return await _postService.DeletePost(userEmail, postId);
@@ -46,12 +46,12 @@ namespace SocialPulse.API.Controllers
 
 
 
-        [HttpPut]
+        [HttpPut("{postId}")]
         [Authorize]
-        public async Task<ActionResult<PostResultDto>> EditPost(PostResultDto input)
+        public async Task<ActionResult<PostResultDto>> EditPost(int postId,PostDto input)
         {
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
-            var res = await _postService.UpdatePostAsync(userEmail, input);
+            var res = await _postService.UpdatePostAsync(userEmail, postId, input);
             return res is not null ? Ok(res) : throw new Exception("test ex");
         }
     }

@@ -70,22 +70,18 @@ namespace SocialPulse.Service
             return _mapper.Map<IEnumerable<PostResultDto>>(allPosts);
         }
 
-        public async Task<PostResultDto> GetPostByIdAsync(string userEmail, int id)
+        public async Task<Post> GetPostByIdAsync(int id)
         {
-            var post = await _unitOfWork.Repository<Post,int>().GetByIdAsync(id);
-            return _mapper.Map<PostResultDto>(post);
+            return await _unitOfWork.Repository<Post,int>().GetByIdAsync(id);
         }
 
-        public async Task<PostResultDto> UpdatePostAsync(string userEmail, PostResultDto updatedPost)
+        public async Task<PostResultDto> UpdatePostAsync(string userEmail,int postId, PostDto updatedPost)
         {
             var user = await _userManager.FindByEmailAsync(userEmail);
-            var post = new Post()
-            {
-                Id = updatedPost.Id,
-                UserId = user.Id,
-                Content = updatedPost.Content,
-                CreatedDate = DateTime.Now,
-            };
+            var post = await GetPostByIdAsync(postId);
+            if (post.UserId != user.Id) throw new Exception("wrong user for comment id");
+
+            post.Content = updatedPost.Content;
             _unitOfWork.Repository<Post, int>().Update(post);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<PostResultDto>(post);

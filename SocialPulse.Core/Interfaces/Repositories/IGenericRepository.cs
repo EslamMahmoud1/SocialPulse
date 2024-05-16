@@ -10,8 +10,6 @@ namespace SocialPulse.Core.Interfaces.Repositories
         public Task<TEntity> GetByIdAsync(TKey id);
         public Task<TEntity> GetByIdWithSpecAsync(ISpecification<TEntity> specification);
 
-        Task<TEntity> GetWithSpecsAsync(ISpecification<TEntity> specification);
-
         public Task AddAsync(TEntity entity);
 
         public void Update(TEntity entity);

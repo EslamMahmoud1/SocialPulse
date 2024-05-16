@@ -13,6 +13,7 @@ namespace SocialPulse.Core.Interfaces.Repositories
         Task AddAsync(Friend friend);
         Task<IEnumerable<Friend>> GetAllAsync();
         Task<IEnumerable<Friend>> GetAllWithSpecsAsync(ISpecification<Friend> specification);
+        Task<List<Friend>> GetAllWithSpecsAsyncc(ISpecification<Friend> specification);
         Task<Friend> GetWithSpecsAsync(ISpecification<Friend> specification);
     }
 }

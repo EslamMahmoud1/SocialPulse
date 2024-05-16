@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SocialPulse.Core.DtoModels.UserDto
 {
-    public class FriendToReturnDto
+    public class AddFriendDto
     {
         public string? ProfilePicture { get; set; }
         [Required]

@@ -19,7 +19,7 @@ namespace SocialPulse.API.Helpers
         }
     }
 
-        public class FriendPictureUrlResolver : IValueResolver<User, FriendToReturnDto, string>
+    public class FriendPictureUrlResolver : IValueResolver<User, FriendToReturnDto, string>
         {
             private readonly IConfiguration _configuration;
 
@@ -59,6 +59,36 @@ namespace SocialPulse.API.Helpers
         }
 
         public string Resolve(Friend source, FriendToReturnDto destination, string destMember, ResolutionContext context)
+        {
+            return !string.IsNullOrEmpty(source.Addressee.ProfilePicture) ? $"{_configuration["BaseUrl"]}{source.Addressee.ProfilePicture}" : string.Empty;
+        }
+    }
+
+    public class AddFriendPictureUrlResolverForRequester : IValueResolver<Friend, AddFriendDto, string>
+    {
+        private readonly IConfiguration _configuration;
+
+        public AddFriendPictureUrlResolverForRequester(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public string Resolve(Friend source, AddFriendDto destination, string destMember, ResolutionContext context)
+        {
+            return !string.IsNullOrEmpty(source.Requester.ProfilePicture) ? $"{_configuration["BaseUrl"]}{source.Requester.ProfilePicture}" : string.Empty;
+        }
+    }
+
+    public class AddFriendPictureUrlResolverForAddressee : IValueResolver<Friend, AddFriendDto, string>
+    {
+        private readonly IConfiguration _configuration;
+
+        public AddFriendPictureUrlResolverForAddressee(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public string Resolve(Friend source, AddFriendDto destination, string destMember, ResolutionContext context)
         {
             return !string.IsNullOrEmpty(source.Addressee.ProfilePicture) ? $"{_configuration["BaseUrl"]}{source.Addressee.ProfilePicture}" : string.Empty;
         }

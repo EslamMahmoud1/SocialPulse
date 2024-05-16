@@ -11,6 +11,6 @@ namespace SocialPulse.Core.Models
         public User Addressee { get; set; }
 
         public FriendshipStatus Status { get; set; } = FriendshipStatus.NotDefined;
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

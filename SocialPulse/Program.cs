@@ -35,6 +35,7 @@ namespace SocialPulse
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IFriendService, FriendService>();
             builder.Services.AddScoped<ITokenService , TokenService>();
+            builder.Services.AddScoped<INewsFeedService , NewsFeedService>();
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             builder.Services.AddIdentityService(builder.Configuration);
             var app = builder.Build();

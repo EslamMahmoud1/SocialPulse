@@ -12,8 +12,11 @@ namespace SocialPulse.API.Mapping
         {
             CreateMap<Post,PostDto>().ReverseMap();
 
-            CreateMap<PostResultDto,Post>().ReverseMap()
-                .ForMember(destination => destination.FilePath , options => options.MapFrom<MediaUrlResolverForPost>());
+            CreateMap<PostResultDto, Post>().ReverseMap()
+                .ForMember(destination => destination.FilePath, options => options.MapFrom<MediaUrlResolverForPost>())
+                .ForMember(destination => destination.UserName, options =>
+                options.MapFrom(source => source.User.UserName));
+
 
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<Comment,CommentResultDto>().ReverseMap();

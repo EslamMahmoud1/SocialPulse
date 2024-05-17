@@ -1,4 +1,5 @@
 ﻿using SocialPulse.Core.Models;
+using SocialPulse.Core.Specification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace SocialPulse.Repository.Specifications
         public UserSpecifications(string username) 
             : base(user => user.UserName == username)
         {
+            IncludeExpressions.Add(x => x.Posts);
         }
     }
 }

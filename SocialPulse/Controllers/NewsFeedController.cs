@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SocialPulse.Core.DtoModels.PostDto;
 using SocialPulse.Core.Interfaces.Services;
+using SocialPulse.Core.Specification;
 using System.Security.Claims;
 
 namespace SocialPulse.API.Controllers
@@ -20,10 +21,10 @@ namespace SocialPulse.API.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<PostResultDto>>> GetNewsFeed()
+        public async Task<ActionResult<IEnumerable<PostResultDto>>> GetNewsFeed([FromQuery] PostSpecificationParameters parameters)
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
-            var posts = await _newsFeedService.GetNewsFeedForUser(email);
+            var posts = await _newsFeedService.GetNewsFeedForUser(email,parameters);
             return Ok(posts);
         }
     }

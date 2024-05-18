@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SocialPulse.Core.DtoModels.PostDto;
+using SocialPulse.Core.Helpers;
 using SocialPulse.Core.Interfaces.Repositories;
 using SocialPulse.Core.Interfaces.Services;
 using SocialPulse.Core.Models;
+using SocialPulse.Core.Specification;
 using SocialPulse.Repository.Repos;
 using SocialPulse.Repository.Specifications;
+using System;
 
 namespace SocialPulse.Service
 {
@@ -24,11 +27,11 @@ namespace SocialPulse.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<PostResultDto>> GetNewsFeedForUser(string userEmail)
+        public async Task<IEnumerable<PostResultDto>> GetNewsFeedForUser(string userEmail , PostSpecificationParameters parameters)
         {
             var user = await _userManager.FindByEmailAsync(userEmail);
 
-            var specs = new FriendSpecifications(f => (f.AddresseeId == user.Id || f.RequesterId == user.Id));
+            var specs = new FriendSpecifications(f => (f.AddresseeId == user.Id || f.RequesterId == user.Id) && f.Status == FriendshipStatus.Accepted);
 
             var friends = await _unitOfWork.FriendRepository().GetAllWithSpecsAsyncc(specs);
 
@@ -36,19 +39,24 @@ namespace SocialPulse.Service
             
             foreach (var friend in friends)
             {
+                var takenId = friend.AddresseeId != user.Id ? friend.AddresseeId : friend.RequesterId;
+
                 allFriendUsers.Add(await _userManager.Users
                     .Include(u => u.Posts)
                     .ThenInclude(u => u.Comments)
-                    .SingleAsync(u => u.Email == friend.Addressee.Email));
+                    .SingleAsync(u => u.Id == takenId));
             }
             var postList = new List<Post>();
             foreach (var friend in allFriendUsers)
             {
                 postList.AddRange(friend.Posts);
             }
-            postList.OrderBy(p => p.CreatedDate);
 
-            return _mapper.Map<IEnumerable<PostResultDto>>(postList);
+            IQueryable<Post> queryablePost = postList.AsQueryable();
+            var spec = new NewsFeedSpecification(parameters);
+            var ResultedPosts = SpecificationEvaluator<Post, int>.BuildQuery(queryablePost, spec);
+
+            return _mapper.Map<IEnumerable<PostResultDto>>(ResultedPosts);
         }
     }
 }
